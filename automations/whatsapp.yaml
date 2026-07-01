@@ -1,0 +1,17 @@
+rules:
+
+  - name: Helpdesk Group
+
+    group: Helpdesk
+
+    require_mention: false
+
+    ai: true
+
+  - name: Mahasiswa Baru
+
+    group: Mahasiswa Baru
+
+    require_mention: false
+
+    ai: true

@@ -1,0 +1,25 @@
+#Kiro
+.kiro
+
+# Environment files (contain secrets)
+.env
+.env.development
+.env.production
+
+# Explicitly track the example
+!.env.example
+
+# Logs
+logs/
+
+# Docker runtime
+docker-volumes/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

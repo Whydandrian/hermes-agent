@@ -1,0 +1,4 @@
+.kiro
+.env
+.env.production
+.env.development

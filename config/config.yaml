@@ -1,0 +1,51 @@
+model:
+  default: gemini-2.5-flash
+
+provider: gemini
+
+memory:
+  memory_enabled: false
+  user_profile_enabled: true
+
+timezone: Asia/Makassar
+
+logging:
+  level: INFO
+
+platforms:
+  whatsapp:
+    require_mention: true      # <-- diubah: grup wajib tag/reply, DM tetap bebas
+    group_policy: open         # bot boleh dipakai di grup mana pun dia diundang
+    dm_policy: open            # DM tetap terbuka untuk semua (sesuai WHATSAPP_ALLOWED_USERS=*)
+    reply_prefix: ""
+    unauthorized_dm_behavior: ignore   # opsional, kalau suatu saat allowlist tidak lagi "*"
+
+  telegram:
+    require_mention: false
+
+platform_toolsets:
+  whatsapp: [web, vision, skills, todo]   # <-- tidak ada terminal/file/browser/cronjob
+
+context_files:
+  - path: /opt/prompts/system.md
+    label: System Prompt
+
+gateway:
+  trust_recent_files: true
+  platforms:
+    whatsapp:
+      extra:
+        allow_admin_from: ["628219710713"]
+        user_allowed_commands: ["help", "whoami", "new", "reset"]
+
+context:
+  engine: compressor
+
+terminal:
+  backend: docker
+  docker_image: "nikolaik/python-nodejs:python3.11-nodejs20"
+  container_cpu: 1
+  container_memory: 1024
+
+approvals:
+  mode: manual
