@@ -1,7 +1,11 @@
 model:
   default: gemini-2.5-flash
+  allowed_models:
+    - gemini-2.5-flash
 
 provider: gemini
+allowed_providers:
+  - gemini
 
 memory:
   memory_enabled: false
@@ -20,6 +24,10 @@ platforms:
     reply_prefix: ""
     unauthorized_dm_behavior: ignore   # opsional, kalau suatu saat allowlist tidak lagi "*"
     home_channel_required: false       # <-- DISABLE "No home channel" message
+    dedup_window: 5             # <-- Prevent duplicate processing within 5 seconds
+    message_timeout: 30         # <-- Timeout untuk message processing (seconds)
+    show_welcome_message: false # <-- DISABLE welcome/help message
+    show_available_tools: false # <-- DISABLE tools listing
 
   telegram:
     require_mention: false
