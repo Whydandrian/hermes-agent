@@ -15,7 +15,8 @@ logs/
 # Docker runtime
 docker-volumes/
 *.log
-
+docker-compose.override.yaml
+error-*
 # OS files
 .DS_Store
 Thumbs.db
