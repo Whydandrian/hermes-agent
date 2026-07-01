@@ -33,11 +33,27 @@ platforms:
     require_mention: false
 
 platform_toolsets:
-  whatsapp: [web, vision, skills, todo]   # <-- tidak ada terminal/file/browser/cronjob
+  whatsapp: [vision]   # Only vision tool, no skills or terminal
 
 context_files:
   - path: /opt/prompts/system.md
     label: System Prompt
+  - path: /opt/knowledges/email/email.md
+    label: Email Knowledge Base
+  - path: /opt/knowledges/domain/domain.md
+    label: Domain Knowledge Base
+  - path: /opt/knowledges/helpdesk/helpdesk.md
+    label: Helpdesk Knowledge Base
+  - path: /opt/knowledges/hosting/hosting.md
+    label: Hosting Knowledge Base
+  - path: /opt/knowledges/networking/lan.md
+    label: LAN Knowledge Base
+  - path: /opt/knowledges/networking/wifi.md
+    label: WiFi Knowledge Base
+  - path: /opt/knowledges/regulation/sop.md
+    label: Regulation & SOP Knowledge Base
+  - path: /opt/knowledges/web-apps/web-apps.md
+    label: Web Apps Knowledge Base
 
 gateway:
   trust_recent_files: true

@@ -8,11 +8,11 @@ Layanan email institusi menyediakan akun email resmi @itk.ac.id untuk dosen dan 
 ## Provisioning Akun
 
 <!-- Proses pembuatan akun email baru -->
-| Tipe Akun | Format | Proses Pembuatan |
-|-----------|--------|------------------|
-| Dosen/Staff | [nama]@itk.ac.id | [Otomatis saat SK keluar / via helpdesk] |
-| Mahasiswa | [NIM]@student.itk.ac.id | [Otomatis saat registrasi] |
-| Unit Kerja | [unit]@itk.ac.id | [Pengajuan via helpdesk] |
+| Tipe Akun   | Format                  | Proses Pembuatan                         |
+| -------------| -------------------------| ------------------------------------------|
+| Dosen/Staff | [nama]@itk.ac.id        | [Otomatis saat SK keluar / via helpdesk] |
+| Mahasiswa   | [NIM]@student.itk.ac.id | [Otomatis saat registrasi]               |
+| Unit Kerja  | [unit]@itk.ac.id        | [Pengajuan via helpdesk]                 |
 
 ## Kuota Email
 
