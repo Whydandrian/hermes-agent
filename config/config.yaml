@@ -19,6 +19,7 @@ platforms:
     dm_policy: open            # DM tetap terbuka untuk semua (sesuai WHATSAPP_ALLOWED_USERS=*)
     reply_prefix: ""
     unauthorized_dm_behavior: ignore   # opsional, kalau suatu saat allowlist tidak lagi "*"
+    home_channel_required: false       # <-- DISABLE "No home channel" message
 
   telegram:
     require_mention: false
@@ -37,6 +38,7 @@ gateway:
       extra:
         allow_admin_from: ["628219710713"]
         user_allowed_commands: ["help", "whoami", "new", "reset"]
+        lock_model: true                 # <-- LOCK model, user tidak bisa ubah
 
 context:
   engine: compressor
