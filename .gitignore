@@ -15,7 +15,7 @@ logs/
 # Docker runtime
 docker-volumes/
 *.log
-docker-compose.override.yaml
+docker-compose.override.yml
 error-*
 # OS files
 .DS_Store

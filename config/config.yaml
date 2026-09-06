@@ -1,11 +1,19 @@
 model:
-  default: gemini-2.5-flash
+  default: llama-3.3-70b-versatile
+  provider: custom:groq
   allowed_models:
-    - gemini-2.5-flash
+    - llama-3.3-70b-versatile
 
-provider: gemini
+provider: custom:groq
 allowed_providers:
-  - gemini
+  - custom:groq
+
+# Groq via OpenAI-compatible endpoint (custom provider).
+# API key diambil dari env var GROQ_API_KEY (lihat .env.production).
+providers:
+  groq:
+    api: https://api.groq.com/openai/v1
+    key_env: GROQ_API_KEY
 
 memory:
   memory_enabled: false
