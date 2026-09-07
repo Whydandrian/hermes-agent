@@ -141,6 +141,12 @@ def _pre_gateway_dispatch(event, gateway=None, session_store=None, **kwargs):
     try:
         text, platform, user_id = _extract(event)
 
+        # LOG DIAGNOSTIK: catat setiap pesan yang lewat hook ini.
+        logger.info(
+            "block-commands: HOOK DIPANGGIL platform=%s user=%s text=%r",
+            platform, user_id, text[:60],
+        )
+
         # Batasi ke platform target (default: whatsapp).
         if TARGET_PLATFORMS and platform and platform not in TARGET_PLATFORMS:
             return None

@@ -15,6 +15,9 @@ services:
       TZ: Asia/Makassar
       HERMES_DASHBOARD: "0"
       HERMES_GATEWAY_NO_SUPERVISE: "0"
+      # Auto-approve hook plugin di lingkungan non-interaktif (gateway).
+      # Tanpa ini, hook plugin custom (block-commands) tidak teregistrasi.
+      HERMES_ACCEPT_HOOKS: "1"
 
     ports:
       - "127.0.0.1:8642:8642"
