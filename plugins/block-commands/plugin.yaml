@@ -1,0 +1,6 @@
+name: block-commands
+version: "1.0"
+description: >
+  Memblokir semua slash command dari pengguna WhatsApp non-admin. Pesan yang
+  diawali '/' dari nomor selain admin tidak diproses sebagai command; bot
+  membalas dengan pesan manusiawi seolah tidak memahami perintah tersebut.
