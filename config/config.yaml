@@ -62,6 +62,10 @@ context_files:
     label: Regulation & SOP Knowledge Base
   - path: /opt/knowledges/web-apps/web-apps.md
     label: Web Apps Knowledge Base
+  - path: /opt/knowledges/synced/knowledge-base.md
+    label: Knowledge Base API (auto-sync dari helpdesk.itk.ac.id)
+  - path: /opt/knowledges/synced/service-catalog.md
+    label: Service Catalog API (auto-sync dari helpdesk.itk.ac.id)
 
 gateway:
   trust_recent_files: true
