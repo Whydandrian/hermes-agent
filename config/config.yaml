@@ -26,16 +26,11 @@ logging:
 
 platforms:
   whatsapp:
-    require_mention: true      # <-- diubah: grup wajib tag/reply, DM tetap bebas
-    group_policy: open         # bot boleh dipakai di grup mana pun dia diundang
-    dm_policy: open            # DM tetap terbuka untuk semua (sesuai WHATSAPP_ALLOWED_USERS=*)
-    reply_prefix: ""
-    unauthorized_dm_behavior: ignore   # opsional, kalau suatu saat allowlist tidak lagi "*"
-    home_channel_required: false       # <-- DISABLE "No home channel" message
-    dedup_window: 5             # <-- Prevent duplicate processing within 5 seconds
-    message_timeout: 30         # <-- Timeout untuk message processing (seconds)
-    show_welcome_message: false # <-- DISABLE welcome/help message
-    show_available_tools: false # <-- DISABLE tools listing
+    require_mention: true              # grup wajib tag/reply; DM tetap bebas
+    group_policy: open                 # bot boleh dipakai di grup mana pun dia diundang
+    dm_policy: open                    # DM terbuka untuk semua (sesuai WHATSAPP_ALLOWED_USERS=*)
+    reply_prefix: ""                   # tanpa header "⚕ Hermes Agent"
+    unauthorized_dm_behavior: ignore   # DM dari nomor tak dikenal diabaikan diam-diam
 
   telegram:
     require_mention: false
@@ -71,10 +66,18 @@ gateway:
   trust_recent_files: true
   platforms:
     whatsapp:
+      # Home channel = chat admin. Set juga di env (WHATSAPP_HOME_CHANNEL) karena
+      # auto-prompt "No home channel" hanya membaca env var, bukan yaml (issue #10581).
+      home_chat_id: "628219710713"
+      gateway_restart_notification: false   # jangan kirim notifikasi restart ke admin
       extra:
+        # Hanya nomor admin yang dianggap admin (boleh semua command).
         allow_admin_from: ["628219710713"]
-        user_allowed_commands: ["help", "whoami", "new", "reset"]
-        lock_model: true                 # <-- LOCK model, user tidak bisa ubah
+        # User biasa TIDAK diberi command apa pun.
+        # Catatan: /help dan /whoami adalah "always-allowed floor" di Hermes dan
+        # mungkin tetap bisa dipicu user biasa meski daftar ini kosong.
+        user_allowed_commands: []
+        lock_model: true                      # user tidak bisa ganti model
 
 context:
   engine: compressor
