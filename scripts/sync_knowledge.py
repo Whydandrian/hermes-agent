@@ -29,6 +29,7 @@ data valid terakhir tetap tersedia untuk Hermes.
 
 from __future__ import annotations
 
+import html
 import json
 import os
 import sys
@@ -73,25 +74,62 @@ def fetch(url: str, key: str, secret: str, timeout: int) -> object:
         raise RuntimeError(f"Response {url} bukan JSON valid. Awal: {raw[:300]}")
 
 
+# Key yang mungkin membungkus daftar entri, di level mana pun.
+_LIST_KEYS = (
+    "knowledge_bases", "services", "service_catalog", "catalog",
+    "items", "results", "data",
+)
+
+
 def extract_items(payload: object) -> list[dict]:
     """Ambil daftar entri dari berbagai kemungkinan bentuk response.
 
-    Menangani list langsung, {"data": [...]}, paginasi Laravel
-    {"data": {"data": [...]}}, dan pembungkus umum lain.
+    Menangani:
+      - list langsung: [ {...}, {...} ]
+      - {"data": [...]}
+      - paginasi Laravel {"data": {"data": [...]}}
+      - response bersarang {"success": true, "data": {"knowledge_bases": [...],
+        "pagination": {...}}}
+
+    Strategi: telusuri secara rekursif. Begitu menemukan list of dict di bawah
+    salah satu key yang dikenal (atau payload itu sendiri sudah list),
+    kembalikan list tersebut.
     """
+    # Payload sudah berupa list.
     if isinstance(payload, list):
         return [x for x in payload if isinstance(x, dict)]
 
-    if isinstance(payload, dict):
-        for key in ("data", "knowledge_bases", "services", "items", "results", "catalog"):
-            if key in payload:
-                inner = payload[key]
-                if isinstance(inner, list):
-                    return [x for x in inner if isinstance(x, dict)]
-                if isinstance(inner, dict) and isinstance(inner.get("data"), list):
-                    return [x for x in inner["data"] if isinstance(x, dict)]
-        return [payload]
+    if not isinstance(payload, dict):
+        return []
 
+    # 1) Cari key yang isinya langsung list of dict (prioritas: nama spesifik
+    #    seperti knowledge_bases/services dulu, baru "data" generik).
+    for key in _LIST_KEYS:
+        inner = payload.get(key)
+        if isinstance(inner, list):
+            dicts = [x for x in inner if isinstance(x, dict)]
+            if dicts:
+                return dicts
+
+    # 2) Kalau tidak ada, telusuri lebih dalam ke setiap nilai dict dan rekursi.
+    #    Ini menangani pembungkus {"success": ..., "data": {...}} berlapis.
+    for key in _LIST_KEYS:
+        inner = payload.get(key)
+        if isinstance(inner, dict):
+            found = extract_items(inner)
+            if found:
+                return found
+
+    # 3) Fallback terakhir: cari di semua nilai dict lain (misalnya struktur
+    #    tak terduga), tanpa mengubah urutan.
+    for value in payload.values():
+        if isinstance(value, dict):
+            found = extract_items(value)
+            if found:
+                return found
+
+    # Tidak ketemu daftar entri; jangan perlakukan seluruh payload sebagai satu
+    # entri (itu yang menyebabkan blob "Untitled").
     return []
 
 
@@ -99,7 +137,8 @@ def pick(item: dict, *keys: str, default: str = "") -> str:
     for k in keys:
         v = item.get(k)
         if v not in (None, ""):
-            return str(v)
+            # Decode HTML entity (mis. &#039; -> ', &quot; -> ") agar teks bersih.
+            return html.unescape(str(v))
     return default
 
 
