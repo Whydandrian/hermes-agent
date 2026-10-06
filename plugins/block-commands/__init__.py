@@ -148,7 +148,11 @@ def _pre_gateway_dispatch(event, gateway=None, session_store=None, **kwargs):
         )
 
         # Batasi ke platform target (default: whatsapp).
-        if TARGET_PLATFORMS and platform and platform not in TARGET_PLATFORMS:
+        # Normalkan nilai platform: bisa berupa "whatsapp", "WHATSAPP",
+        # atau enum "Platform.WHATSAPP". Ambil token terakhir setelah '.'
+        # lalu lowercase supaya perbandingan konsisten.
+        platform_norm = platform.split(".")[-1].strip().lower()
+        if TARGET_PLATFORMS and platform_norm and platform_norm not in TARGET_PLATFORMS:
             return None
 
         stripped = text.lstrip()
