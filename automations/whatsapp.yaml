@@ -4,7 +4,8 @@ rules:
 
     group: Helpdesk
 
-    require_mention: false
+    # Grup hanya merespons jika bot di-tag/di-mention atau pesannya di-reply.
+    require_mention: true
 
     ai: true
 
@@ -12,6 +13,7 @@ rules:
 
     group: Mahasiswa Baru
 
-    require_mention: false
+    # Grup hanya merespons jika bot di-tag/di-mention atau pesannya di-reply.
+    require_mention: true
 
     ai: true
