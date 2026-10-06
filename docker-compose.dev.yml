@@ -1,0 +1,20 @@
+# Override khusus DEVELOPMENT.
+# File ini TIDAK auto-load (sengaja bukan docker-compose.override.yml) supaya
+# tidak ikut terbaca di production.
+#
+# Pakai saat development:
+#   docker compose -f docker-compose.yaml -f docker-compose.dev.yml up -d
+#
+# Production cukup:
+#   docker compose up -d
+services:
+  hermes:
+    env_file:
+      - .env.development
+    environment:
+      HERMES_DASHBOARD: "1"
+      LOG_LEVEL: DEBUG
+    mem_limit: 2g
+    shm_size: 1g
+    ports:
+      - "127.0.0.1:8642:8642"
