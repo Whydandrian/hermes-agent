@@ -1,0 +1,8 @@
+name: redact-identity
+version: "1.0"
+description: >
+  Mencegah kebocoran identitas sistem (Hermes, model, vendor, teknologi AI) ke
+  pengguna. Jika jawaban model mengandung kata/frasa terlarang, seluruh jawaban
+  diganti dengan kalimat baku: "Saya adalah AI Agent UPA TIK untuk membantu
+  kebutuhan pengguna." Berlaku lintas bahasa, tidak bergantung pada kepatuhan
+  model terhadap system prompt.
