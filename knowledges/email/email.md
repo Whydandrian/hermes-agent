@@ -3,7 +3,7 @@
 ## Deskripsi Layanan
 
 <!-- Jelaskan layanan email institusi -->
-Layanan email institusi menyediakan akun email resmi @itk.ac.id untuk dosen dan tenaga kependidikan, serta @student.itk.ac.id untuk mahasiswa Institut Teknologi Kalimantan.
+Layanan email institusi menyediakan akun email resmi @lecturer.itk.ac.id untuk dosen dan @staff.itk.ac.id tenaga kependidikan, serta @student.itk.ac.id untuk mahasiswa Institut Teknologi Kalimantan.
 
 ## Provisioning Akun
 
